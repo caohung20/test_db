@@ -21,9 +21,9 @@ class Orders(Database):
 
     def query_row(self,row_name):
         query = f"""
-        SELECT NAME
+        SELECT *
         FROM ORDERS
-        WHERE NAME = '{row_name}'  
+        WHERE NAME = {row_name}  
         ;
         """
         data = self.snowflake_connection.cursor().execute(query).fetchall()
@@ -51,8 +51,7 @@ class Orders(Database):
     
     def get_ord_name(self):
         query = f"""
-        SELECT
-            NAME
+        SELECT NAME
         FROM "ORDERS"
         """
         data = self.snowflake_connection.cursor().execute(query).fetchall()
@@ -90,4 +89,10 @@ if __name__ == '__main__':
     #df = cost.get_costs()
     #print(df)
     order = Orders()
-    order_items = OrderItems()
+    data = order.get_ord_name()
+    for i in range(len(data)):
+        data[i] = str(data[i]).replace('(','')
+        data[i] = str(data[i]).replace(')','')
+        data[i] = str(data[i]).replace(',','')
+    data_row = order.query_row(data[i])
+    print(data_row)
