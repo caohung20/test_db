@@ -80,7 +80,7 @@ class OrderItems(Database):
         return
     def post_entry(self,values:list):
         query = f"""
-            INSERT INTO ORDERS( "ITEM_NAME", "PRICE", "COUNT")
+            INSERT INTO ORDER_ITEMS( "ITEM_NAME", "PRICE", "COUNT")
             VALUES(%s, %s, %s);"""    
         self.snowflake_connection.cursor().execute(query, values)
 
@@ -95,4 +95,10 @@ if __name__ == '__main__':
         data[i] = str(data[i]).replace(')','')
         data[i] = str(data[i]).replace(',','')
     data_row = order.query_row(data[i])
+    list_input = ['caohung']
+    number = 30
+    list_input.append(number)
+    list_input.append(number)
+    ord_items = OrderItems()
+    ord_items.post_entry(list_input)
     print(data_row)

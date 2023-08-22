@@ -2,7 +2,6 @@ import streamlit as st
 import streamlit_authenticator as stauth
 from connector import Database
 from testcode import Orders
-import pandas as pd
 
 class LayerInput(Database):
     def __init__(self):

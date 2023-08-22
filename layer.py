@@ -2,16 +2,12 @@ import streamlit as st
 
 from testcode import Orders,OrderItems
 import pandas as pd
-from styles import Styles
-from users import Users
-from logs import Logs
-import datetime as dt
-import pytz
-from connector import Database
+
 
 class Layer():
     def __init__(self) -> None:
-        
+        self.order = Orders()
+        self.order_items = OrderItems()
         self.df = pd.DataFrame(
             [
                 {"ITEM_NAME": "", "PRICE":"", "COUNT":""},         
@@ -24,27 +20,18 @@ class Layer():
         if self.save_button:
             st.write('already save')
             st.write(f"{self.blank}")
-            self.__updateorder__()
-            self.data_to_insert = self.edited_df.loc[0]["PRICE"]
-            st.write(f"{self.data_to_insert}")
-            
-            self.__update_order_items__()
-            
-    def __updateorder__(self): 
-        order = Orders()
-        order.post_entry(self.blank)
+            self.order.post_entry(self.blank)
+            list_of_dict = self.edited_df.to_dict(orient='list')
+            st.write(list_of_dict)
+            self.__update_order_items__(list_of_dict)
 
-    def __update_order_items__(self):
-        order_items = OrderItems()
-        no_row = self.edited_df.shape[0]
-        for i in range(no_row):
-            cell0 = self.edited_df.loc[i]["ITEM_NAME"]
-            cell1 = int(self.edited_df.loc[i]["PRICE"])
-            cell2 = int(self.edited_df.loc[i]["COUNT"])
-            l1st = [cell0, cell1, cell2]
-            print(l1st)
-            order_items.post_entry(l1st)
-
-
+    def __update_order_items__(self, list_of_input):
+        for i in range(len(list_of_input["ITEM_NAME"])):
+                list_input = []
+                list_input.append(list_of_input["ITEM_NAME"][i])
+                list_input.append(list_of_input["PRICE"][i])
+                list_input.append(list_of_input["COUNT"][i])
+                self.order_items.post_entry(list_input)    
+    
 if __name__ == '__main__':
     layer = Layer()
