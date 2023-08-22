@@ -2,6 +2,6 @@ streamlit-authenticator==0.2.1
 pandas
 datetime==4.3
 plotly==5.15.0
-pyyaml==5.4.1
+pyyaml
 snowflake-connector-python
 
