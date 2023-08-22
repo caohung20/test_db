@@ -1,5 +1,5 @@
 pyyaml==5.4.1
-snowflake-connector-python==3.0.4
+snowflake-connector-python
 streamlit==1.25.0
 streamlit-authenticator==0.2.1
 pandas
