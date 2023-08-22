@@ -1,10 +1,5 @@
 import streamlit as st
-import streamlit_authenticator as stauth
-import yaml
 import pandas as pd
-from styles import Styles
-from users import Users
-from logs import Logs
 import datetime as dt
 import pytz
 from connector import Database
