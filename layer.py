@@ -21,7 +21,6 @@ class Layer():
             st.write(f"{self.blank}")
             self.order.post_entry(self.blank)
             list_of_dict = self.edited_df.to_dict(orient='list')
-            st.write(list_of_dict)
             self.__update_order_items__(list_of_dict)
 
     def __update_order_items__(self, list_of_input):
